@@ -7,11 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $data = file_get_contents("php://input");
     $params = json_decode($data, true);
 
-    $recipe = $params['recipe'];
-    $recipe = '%'.$recipe.'%';
+    $recipe_name = $params['recipe_name'];
+    $recipe_name = '%'.$recipe_name.'%';
 
     $stmt = $conn->prepare('SELECT * FROM recipes WHERE name LIKE ?');
-    $stmt->bind_param('s', $recipe);
+    $stmt->bind_param('s', $recipe_name);
     $stmt->execute();
 
     $result = $stmt->get_result();

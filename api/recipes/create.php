@@ -20,12 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         $recipe_name = $params['recipe_name'];
         $description = $params['description'];
-        $image = $params['image'];
+        $image_url = $params['image_url'];
         $preparation_time = $params['preparation_time'];
         $cooking_time = $params['cooking_time'];
 
         $stmt2 = $conn->prepare("INSERT INTO recipes (user_id, name, description, image_url, preparation_time, cooking_time) VALUES (?,?,?,?,?,?)");
-        $stmt2->bind_param('isssss', $user_id, $recipe_name, $description, $image, $preparation_time, $cooking_time);
+        $stmt2->bind_param('isssss', $user_id, $recipe_name, $description, $image_url, $preparation_time, $cooking_time);
         $stmt2->execute();
 
         $recipe_id=mysqli_insert_id($conn);
