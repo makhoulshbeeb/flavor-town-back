@@ -7,10 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $data = file_get_contents("php://input");
     $params = json_decode($data, true);
 
-    $recipe_id = $params['recipe_id'];
+    $recipe_name = $params['recipe_name'];
+    $recipe_name = '%'.$recipe_name.'%';
 
-    $stmt = $conn->prepare('SELECT * FROM recipes WHERE id = ?');
-    $stmt->bind_param('i', $recipe_id);
+    $stmt = $conn->prepare('SELECT * FROM recipes WHERE name LIKE ? ORDER BY id DESC');
+    $stmt->bind_param('s', $recipe_name);
     $stmt->execute();
 
     $result = $stmt->get_result();
